@@ -23,7 +23,7 @@ struct timeval
 };
 
 
-int gettimeofday(struct timeval *tv, struct timezone *tz)
+__forceinline int gettimeofday(struct timeval *tv, struct timezone *tz)
 {
 	FILETIME ft;
 	unsigned __int64 tmpres = 0;

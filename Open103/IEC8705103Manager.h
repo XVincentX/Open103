@@ -673,7 +673,7 @@ public:
 		time_t tma;
 		time(&tma);
 		timeval tv;
-		//gettimeofday(&tv,0);
+		gettimeofday(&tv,0);
 
 
 		if (!this->TimeSync(&tma,&tv))
