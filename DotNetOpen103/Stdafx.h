@@ -5,5 +5,4 @@
 #pragma once
 
 #include <Windows.h>
-#include <IEC8705103Manager.h>
 #include "SerialCommPort.h"

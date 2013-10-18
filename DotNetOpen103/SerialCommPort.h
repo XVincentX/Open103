@@ -1,5 +1,5 @@
 #pragma once
-#include "communicationport.h"
+#include <communicationport.h>
 #include <Windows.h>
 
 class SerialCommPort :
