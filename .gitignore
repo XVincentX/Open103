@@ -19,3 +19,7 @@
 *.exe
 *.out
 *.app
+
+Debug\*
+Open103\Debug\*
+DotNetOpen103\Debug\*
