@@ -27,48 +27,38 @@ As reference, you may want to use this _SerialCommPort_
 
 ```c++
 #pragma once
-#include "communicationport.h"
 #include <Windows.h>
 
-class SerialCommPort :
-	public CommunicationPort
-{
-public:
-	SerialCommPort(string name)
-	{
-		port = CreateFile(name.c_str(),GENERIC_READ|GENERIC_WRITE,0,0,CREATE_ALWAYS,0,0);
-		if (port == NULL)
-		{
+#include "communicationport.h"
 
-		}
+class SerialCommPort : public CommunicationPort {
+ public:
+  SerialCommPort(string name) {
+    port = CreateFile(name.c_str(), GENERIC_READ | GENERIC_WRITE, 0, 0, CREATE_ALWAYS, 0, 0);
+    if (port == NULL) {
+    }
+  }
+  virtual int Read(unsigned char* thePacket, int maxlen) {
+    DWORD dw;
+    ReadFile(port, thePacket, maxlen, &dw, 0);
+    return dw;
+  }
 
-	}
-	virtual int Read(unsigned char* thePacket, int maxlen)
-	{
-		DWORD dw;
-		ReadFile(port,thePacket,maxlen,&dw,0);
-		return dw;
-	}
+  virtual int Write(unsigned char* thePacket, int len) {
+    DWORD dw;
+    WriteFile(port, thePacket, len, &dw, 0);
+    return dw;
+  }
 
-	virtual int Write(unsigned char* thePacket, int len)
-	{
-		DWORD dw;
-		WriteFile(port,thePacket,len,&dw,0);
-		return dw;
-	}
+  virtual ~SerialCommPort(void) {
+    if (port != NULL) CloseHandle(port);
 
-	virtual ~SerialCommPort(void)
-	{
-		if (port != NULL)
-			CloseHandle(port);
+    port = NULL;
+  }
 
-		port = NULL;
-	}
-
-private:
-	HANDLE port;
+ private:
+  HANDLE port;
 };
-
 ```
 
 Once you have got your code working, you should usual start with a StationInit
